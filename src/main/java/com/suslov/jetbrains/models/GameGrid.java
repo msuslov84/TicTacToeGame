@@ -34,24 +34,29 @@ public class GameGrid {
     }
 
     public void represent() {
-        System.out.println("---------");
-        for (int i = 0; i < field.length; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < field[i].length; j++) {
-                System.out.print(field[i][j] + SPACE_SYMBOL);
+        StringBuilder str = new StringBuilder();
+        str.append("---------\n");
+        for (char[] chars : field) {
+            str.append("| ");
+            for (char aChar : chars) {
+                str.append(aChar).append(SPACE_SYMBOL);
             }
-            System.out.println("|");
+            str.append("|\n");
         }
-        System.out.println("---------");
+        str.append("---------\n");
+
+        System.out.println(str);
     }
 
     public boolean cellIsOccupied(int i, int j) {
-        return field[i - 1][j - 1] != SPACE_SYMBOL;
+        return field[i][j] != SPACE_SYMBOL;
     }
 
     public void setValueIntoCell(int i, int j, char value) {
-        field[i - 1][j - 1] = value;
-        emptySells--;
+        field[i][j] = value;
+        if (value != SPACE_SYMBOL) {
+            emptySells--;
+        }
     }
 
     public char getValue(int i, int j) {
