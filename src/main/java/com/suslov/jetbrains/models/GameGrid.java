@@ -43,7 +43,7 @@ public class GameGrid {
             }
             str.append("|\n");
         }
-        str.append("---------\n");
+        str.append("---------");
 
         System.out.println(str);
     }

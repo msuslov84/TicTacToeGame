@@ -67,6 +67,7 @@ public class GameManager {
     }
 
     protected void setValueByUserCoordinates(char value) {
+        System.out.printf("Enter the coordinates (1-%d): ", gameGrid.getGridSize());
         String x;
         String y;
         do {
@@ -84,7 +85,7 @@ public class GameManager {
         int xInt = Integer.parseInt(x);
         int yInt = Integer.parseInt(y);
         if (xInt > gameGrid.getGridSize() || yInt > gameGrid.getGridSize()) {
-            System.out.println("Coordinates should be from 1 to 3!");
+            System.out.printf("Coordinates should be from 1 to %d!\n", gameGrid.getGridSize());
             return false;
         }
         if (gameGrid.cellIsOccupied(yInt - 1, xInt - 1)) {
