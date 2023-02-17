@@ -11,4 +11,5 @@ for checking and controlling correct perfomance.
 * java -jar TicTacToeGame.jar
 ### Technical information:
 * Java 8 (Oracle OpenJDK version 1.8.0_311)
-* Library JUnit 4.13.1
+* JUnit 4.13.1
+* Apache Maven 3.8.6
