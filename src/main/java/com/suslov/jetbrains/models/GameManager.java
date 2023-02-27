@@ -6,14 +6,14 @@ import java.util.Scanner;
  * @author Mikhail Suslov
  */
 public class GameManager {
-    public static final char SPACE_SYMBOL = ' ';
-    public static final char X_SYMBOL = 'X';
-    public static final char O_SYMBOL = 'O';
+    static final char SPACE_SYMBOL = ' ';
+    static final char X_SYMBOL = 'X';
+    static final char O_SYMBOL = 'O';
 
     private final Scanner scanner;
     private final GameGrid gameGrid;
 
-    protected int sequence;
+    int sequence;
 
     private boolean isEnd;
     private boolean xWin;
@@ -57,7 +57,7 @@ public class GameManager {
         finishGame();
     }
 
-    protected char chooseUserSymbol() {
+    char chooseUserSymbol() {
         char symbol = X_SYMBOL;
         if (sequence != 0) {
             symbol = O_SYMBOL;
@@ -66,7 +66,7 @@ public class GameManager {
         return symbol;
     }
 
-    protected void setValueByUserCoordinates(char value) {
+    void setValueByUserCoordinates(char value) {
         System.out.printf("Enter the coordinates (1-%d): ", gameGrid.getGridSize());
         String x;
         String y;
@@ -76,15 +76,17 @@ public class GameManager {
         } while (!setCorrectValueIntoGrid(x, y, value));
     }
 
-    protected boolean setCorrectValueIntoGrid(String x, String y, char value) {
+    boolean setCorrectValueIntoGrid(String x, String y, char value) {
         String regExOnlyDigits = "\\d";
-        if (!x.matches(regExOnlyDigits) || !y.matches(regExOnlyDigits)) {
+        boolean incorrectCoords = !x.matches(regExOnlyDigits) || !y.matches(regExOnlyDigits);
+        if (incorrectCoords) {
             System.out.println("You should enter numbers!");
             return false;
         }
         int xInt = Integer.parseInt(x);
         int yInt = Integer.parseInt(y);
-        if (xInt > gameGrid.getGridSize() || yInt > gameGrid.getGridSize()) {
+        boolean coordsOutOfBounds = xInt > gameGrid.getGridSize() || yInt > gameGrid.getGridSize();
+        if (coordsOutOfBounds) {
             System.out.printf("Coordinates should be from 1 to %d!\n", gameGrid.getGridSize());
             return false;
         }
@@ -125,7 +127,7 @@ public class GameManager {
         isEnd = oWin || xWin || draw;
     }
 
-    protected int determineValueInCell(char gridCell) {
+    int determineValueInCell(char gridCell) {
         switch (gridCell) {
             case X_SYMBOL:
                 return 1;
@@ -137,7 +139,7 @@ public class GameManager {
         }
     }
 
-    protected void analyzeLineValue(int lineValue) {
+    void analyzeLineValue(int lineValue) {
         if (lineValue == gameGrid.getGridSize()) {
             xWin = true;
         } else if (lineValue == -gameGrid.getGridSize()) {
@@ -145,7 +147,7 @@ public class GameManager {
         }
     }
 
-    protected void finishGame() {
+    void finishGame() {
         if (draw) {
             System.out.println("Result: draw");
         } else if (oWin) {
